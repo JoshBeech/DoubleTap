@@ -33,6 +33,8 @@ namespace MultiplayerSocialServer
 
 	class MainClass
 	{
+		public static int BasePort = 27550;
+		public static int PortOffset = 50;
 		public static ManualResetEvent AllDone = new ManualResetEvent(false);
 		public static Dictionary<string, Socket> UnassignedClients = new Dictionary<string, Socket>();
 		public static Dictionary<string, Room> Rooms = new Dictionary<string, Room>();
@@ -49,7 +51,7 @@ namespace MultiplayerSocialServer
 			byte[] bytes = new byte[2048];
 
 			// Establish the local endpoint for the socket.
-			IPEndPoint LocalEndPoint = new IPEndPoint(IPAddress.Any, 13000);
+			IPEndPoint LocalEndPoint = new IPEndPoint(IPAddress.Any, BasePort);
 
 			// Create a TCP/IP socket.
 			Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -151,7 +153,7 @@ namespace MultiplayerSocialServer
 						case Messages.CREATEROOM:
 							if(!Rooms.ContainsKey(MessageParts[1]))
 							{
-								Room NewRoom = new Room(MessageParts[1]);
+								Room NewRoom = new Room(MessageParts [1], (BasePort + PortOffset + Rooms.Count));
 								Rooms.Add(NewRoom.name, NewRoom);
 							}
 							else
@@ -175,10 +177,12 @@ namespace MultiplayerSocialServer
 							
 							SendTo(UnassignedClients[MessageParts[1]], MessageParts[2]);													
 							break;
-						case Messages.SENDALL:
-							if(!MessageParts[1].Contains("Room"))
-							foreach(KeyValuePair<string, Socket> pair in UnassignedClients)
-									SendTo(UnassignedClients[pair.Key], MessageParts[2]);
+					case Messages.SENDALL:
+							if (!MessageParts [1].Contains ("Room")) 
+							{
+								foreach (KeyValuePair<string, Socket> pair in UnassignedClients)
+									SendTo (UnassignedClients [pair.Key], MessageParts [2]);
+							}
 							else
 							foreach(KeyValuePair<string, Socket> pair in Rooms[MessageParts[1]].Clients)
 								SendTo(Rooms[MessageParts[1]].Clients[pair.Key], MessageParts[2]);

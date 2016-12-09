@@ -12,11 +12,19 @@ namespace MultiplayerSocialServer
 	{
 		public string name;
 		public Dictionary<string, Socket> Clients = new Dictionary<string, Socket>();
+		public int UdpPort; 
+		public UdpClient UdpListener;
+		public IPEndPoint RoomUdpEndPoint;
 
-		public Room(string RoomName)
+		public Room(string p_RoomName, int p_UdpPort)
 		{
-			name = RoomName;
+			name = p_RoomName;
+			UdpPort = p_UdpPort;
+			UdpListener = new UdpClient(UdpPort);
+			RoomUdpEndPoint = new IPEndPoint (IPAddress.Any, UdpPort);
 		}
+
+
 	}
 }
 
