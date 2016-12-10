@@ -59,6 +59,9 @@ obj/
 
 ## Build generated
 build/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcworkspace/contents.xcworkspacedata
 DerivedData/
 
 ## Various settings
