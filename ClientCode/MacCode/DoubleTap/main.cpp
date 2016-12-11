@@ -13,7 +13,11 @@
 #include <netdb.h>
 #include <thread>
 #include <unistd.h>
+#include "StateManager.hpp"
+#include "MenuState.hpp"
+#include "GameState.hpp"
 #include "Player.hpp"
+
 
 const int BUFFSIZE = 2048;
 
@@ -40,7 +44,13 @@ std::string ReceiveMessage(int sockfd);
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(200, 200), "Double Tap");
+    //MenuState TheMenu;
+    //GameState TheGame;
+    std::shared_ptr<MenuState> Menu(new MenuState());
+    std::shared_ptr<GameState> Game(new GameState());
     
+    STATE_MANAGER.AddState(Menu);
+    STATE_MANAGER.AddState(Game);
     //int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     
     //EstablishConnection(sockfd, "localhost", "27550");
@@ -56,12 +66,26 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if(event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code == sf::Keyboard::Key::Space)
+                {
+                    if(STATE_MANAGER.GetCurrentState()->GetID() == MENU)
+                        STATE_MANAGER.ChangeState(GAME);
+                    else if (STATE_MANAGER.GetCurrentState()->GetID() == GAME)
+                        STATE_MANAGER.ChangeState(MENU);
+                }
+            }
         }
+        
+        STATE_MANAGER.GetCurrentState()->Update();
         
         window.clear();
         window.draw(test_player.GetAvatar());
         window.display();
     }
+    
+    delete &STATE_MANAGER;
     
     return 0;
 }

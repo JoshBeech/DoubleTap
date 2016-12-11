@@ -71,7 +71,6 @@ bool InputManager::IsEventTracked(sf::Event CurrentEvent)
         else
             return false;
     }
-
-    
-    return true;
+    else
+        return false;
 }
