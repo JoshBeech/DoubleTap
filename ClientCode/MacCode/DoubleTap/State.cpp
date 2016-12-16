@@ -11,10 +11,9 @@
 void State::HideScene(GUI_SCENE p_SceneToHide)
 {
     for(auto& l_widget: m_GUIScenes[p_SceneToHide])
-    {
         l_widget->hide();
-        
-    }
+    
+    // Set to default?
 
 }
 

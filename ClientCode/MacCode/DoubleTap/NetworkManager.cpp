@@ -53,7 +53,7 @@ void NetworkManager::EstablishConnection()
     freeaddrinfo(servinfo); // free the linked-list
 }
 
-long NetworkManager::SendMessage(std::string p_msg)
+void NetworkManager::SendMessage(std::string p_msg)
 {
     char buffer[BUFFSIZE];
     long n;
@@ -66,7 +66,6 @@ long NetworkManager::SendMessage(std::string p_msg)
         perror("send");
         _exit(-1);
     }
-    return n;
 }
 
 std::string NetworkManager::ReceiveMessage()

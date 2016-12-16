@@ -20,7 +20,7 @@
 #include "Player.hpp"
 
 
-const int BUFFSIZE = 2048;
+//const int BUFFSIZE = 2048;
 
 void EstablishConnection(int sockfd, std::string hostname, std::string port);
 long SendMessage(std::string msg, int sockfd);
@@ -62,10 +62,7 @@ int main()
     
     NETWORK_MANAGER.InitaliseSocket();
     NETWORK_MANAGER.EstablishConnection();
-    //NETWORK_MANAGER.SendMessage("reg:client:\n");
-    NETWORK_MANAGER.SendMessage("sendto:bob:Hi");
-    //std::cout<<NETWORK_MANAGER.ReceiveMessage()<<std::endl;
-
+    //NETWORK_MANAGER.SendMessage("sendto:bob:Hi");
     
     Player test_player(10, 10);
     
@@ -95,72 +92,12 @@ int main()
     
         window.clear();
         GUI.draw();
-        window.draw(test_player.GetAvatar());
+        //window.draw(test_player.GetAvatar());
         window.display();
     }
     
     delete &STATE_MANAGER;
+    delete &NETWORK_MANAGER;
     
     return 0;
-}
-
-void EstablishConnection(int sockfd, std::string hostname, std::string port)
-{
-    // Setting things up
-    int status;
-    struct addrinfo hints;
-    struct addrinfo* servinfo;
-    // will point to the results
-    memset(&hints, 0, sizeof hints);
-    // make sure the struct is empty
-    hints.ai_family = AF_INET;
-    // Choose IPv4 over IPv6
-    hints.ai_socktype = SOCK_STREAM;
-    // TCP stream sockets
-    hints.ai_flags = AI_PASSIVE;
-    // fill in my IP for me OR use NULL
-    if ((status = getaddrinfo(hostname.c_str(),
-                              port.c_str(), &hints, &servinfo)) != 0)
-    {
-        fprintf(stderr, "getaddrinfo error: %s\n",
-                gai_strerror(status));
-        exit(1);
-    }
-    // servinfo now points to a linked list of 1 or more struct addrinfos
-    // ... Do everything until you don 't need servinfo anymore ...
-    
-    connect(sockfd, servinfo->ai_addr, servinfo->ai_addrlen);
-    
-    freeaddrinfo(servinfo); // free the linked-list
-}
-
-long SendMessage(std::string msg, int sockfd)
-{
-    char buffer[BUFFSIZE];
-    long n;
-    memset(buffer, 0, BUFFSIZE);
-    memcpy(buffer, msg.c_str(), msg.length());
-    n = write(sockfd, buffer, msg.length());
-    // as an alternative: send
-    if (n < 0)
-    {
-        perror("send");
-        exit(-1);
-    }
-    return n;
-}
-
-std::string ReceiveMessage(int sockfd)
-{
-    char buffer[BUFFSIZE];
-    // read
-    memset(buffer, 0, BUFFSIZE);
-    long n = read(sockfd, buffer, BUFFSIZE);
-    // as an alternative: recv
-    if (n < 0) 
-    {
-        perror("recv");	
-        exit(-1);
-    }
-    return std::string(buffer);
 }

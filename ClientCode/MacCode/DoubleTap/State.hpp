@@ -14,7 +14,7 @@
 #include <map>
 
 enum StateID { MENU, GAME };
-enum GUI_SCENE {LOGIN, LOBBY, SETTINGS, MAINGAME, ENDGAME };
+enum GUI_SCENE {LOGIN, MAINLOBBY, ROOMLOBBY, SETTINGS, MAINGAME, ENDGAME };
 
 // Abstract
 class State
