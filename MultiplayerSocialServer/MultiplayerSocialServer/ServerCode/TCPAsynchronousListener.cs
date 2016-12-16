@@ -140,18 +140,16 @@ namespace MultiplayerSocialServer
 						Rooms[MessageParts[1]].Clients.Remove(MessageParts[2]);
 						UnassignedClients.Add(MessageParts[2], handler);
 						break;
-					case Messages.SENDTO:
-						if(!UnassignedClients.ContainsKey(MessageParts[1]))
-							SendTo(handler, "Could not find user: " + MessageParts[1] + "\n");
-
-						SendTo(UnassignedClients[MessageParts[1]], MessageParts[2]);													
+                        case Messages.SENDTO:
+                        if (!UnassignedClients.ContainsKey(MessageParts[1]))
+                            SendTo(handler, "Could not find user: " + MessageParts[1] + "\n");
+                        else
+                            SendTo(UnassignedClients[MessageParts[1]], MessageParts[2]);
 						break;
 					case Messages.SENDALL:
 						if (!MessageParts [1].Contains ("Room")) 
-						{
 							foreach (KeyValuePair<string, Socket> pair in UnassignedClients)
-								SendTo (UnassignedClients [pair.Key], MessageParts [2]);
-						}
+								SendTo (UnassignedClients [pair.Key], MessageParts [2]);						
 						else
 							foreach(KeyValuePair<string, Socket> pair in Rooms[MessageParts[1]].Clients)
 								SendTo(Rooms[MessageParts[1]].Clients[pair.Key], MessageParts[2]);

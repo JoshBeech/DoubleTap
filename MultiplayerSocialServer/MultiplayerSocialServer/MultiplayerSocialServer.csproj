@@ -36,6 +36,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerCode\Program.cs" />
     <Compile Include="ServerCode\Room.cs" />
+    <Compile Include="ServerCode\TCPAsynchronousListener.cs" />
+    <Compile Include="ServerCode\UDPAsynchronousListener.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
