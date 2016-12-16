@@ -132,9 +132,11 @@ namespace MultiplayerSocialServer
 						// Check if room is full - what is max size?
 						if(!Rooms.ContainsKey(MessageParts[1]))
 							SendTo(handler, "Room does not exist");
-
-						UnassignedClients.Remove(MessageParts[2]);
-						Rooms[MessageParts[1]].AddClient(MessageParts[2], handler);						
+                        else
+                        {
+                            UnassignedClients.Remove(MessageParts[2]);
+                            Rooms[MessageParts[1]].AddClient(MessageParts[2], handler);       
+                        }					
 						break;
 					case Messages.LEAVEROOM:
 						Rooms[MessageParts[1]].Clients.Remove(MessageParts[2]);
@@ -147,7 +149,7 @@ namespace MultiplayerSocialServer
                             SendTo(UnassignedClients[MessageParts[1]], MessageParts[2]);
 						break;
 					case Messages.SENDALL:
-						if (!MessageParts [1].Contains ("Room")) 
+						if (!MessageParts[1].Contains ("Room")) 
 							foreach (KeyValuePair<string, Socket> pair in UnassignedClients)
 								SendTo (UnassignedClients [pair.Key], MessageParts [2]);						
 						else
