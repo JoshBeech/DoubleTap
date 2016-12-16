@@ -8,11 +8,12 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <netdb.h>
-#include <thread>
-#include <unistd.h>
+//#include <sys/socket.h>
+//#include <sys/types.h>
+//#include <netdb.h>
+//#include <thread>
+//#include <unistd.h>
+#include "NetworkManager.hpp"
 #include "StateManager.hpp"
 #include "MenuState.hpp"
 #include "GameState.hpp"
@@ -43,11 +44,13 @@ std::string ReceiveMessage(int sockfd);
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "Double Tap");
-    //MenuState TheMenu;
-    //GameState TheGame;
-    std::shared_ptr<MenuState> Menu(new MenuState());
-    std::shared_ptr<GameState> Game(new GameState());
+    sf::RenderWindow window(sf::VideoMode(1280, 800), "Double Tap");
+
+    std::shared_ptr<tgui::Theme> l_Theme = std::make_shared<tgui::Theme>("Themes/Black.txt");
+    tgui::Gui GUI(window);
+    
+    std::shared_ptr<MenuState> Menu(new MenuState(&GUI, l_Theme));
+    std::shared_ptr<GameState> Game(new GameState(&GUI, l_Theme));
     
     STATE_MANAGER.AddState(Menu);
     STATE_MANAGER.AddState(Game);
@@ -56,6 +59,13 @@ int main()
     //EstablishConnection(sockfd, "localhost", "27550");
     //SendMessage("hello server", sockfd);
     //std::cout<<ReceiveMessage(sockfd)<<std::endl;
+    
+    NETWORK_MANAGER.InitaliseSocket();
+    NETWORK_MANAGER.EstablishConnection();
+    //NETWORK_MANAGER.SendMessage("reg:client:\n");
+    NETWORK_MANAGER.SendMessage("sendto:bob:Hi");
+    //std::cout<<NETWORK_MANAGER.ReceiveMessage()<<std::endl;
+
     
     Player test_player(10, 10);
     
@@ -66,6 +76,9 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            
+            GUI.handleEvent(event);
+            
             if(event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::Key::Space)
@@ -79,8 +92,9 @@ int main()
         }
         
         STATE_MANAGER.GetCurrentState()->Update();
-        
+    
         window.clear();
+        GUI.draw();
         window.draw(test_player.GetAvatar());
         window.display();
     }

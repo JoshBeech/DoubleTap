@@ -15,14 +15,16 @@
 class GameState : public State
 {
 public:
-    GameState();
+    GameState(tgui::Gui* p_GUI, std::shared_ptr<tgui::Theme> p_Theme);
     ~GameState();
-    void Create() override;
+    void Create(tgui::Gui* p_GUI, std::shared_ptr<tgui::Theme> p_Theme) override;
     void Destroy() override;
     void Enter() override;
     void Exit() override;
     void Update() override;
     void Render() override;
+    
+    void LoadScenes() override;
 private:
     // GUI Items
 };

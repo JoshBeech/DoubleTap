@@ -13,9 +13,7 @@ StateManager *StateManager::m_instance = NULL;
 StateManager& StateManager::GetInstance()
 {
     if(NULL == m_instance)
-    {
         m_instance = new StateManager;
-    }
     
     return *m_instance;
 }

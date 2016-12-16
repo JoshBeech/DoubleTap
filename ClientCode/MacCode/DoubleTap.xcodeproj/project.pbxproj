@@ -1,0 +1,341 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B711C2D41DE47F35000FDB22 /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B711C2D31DE47F35000FDB22 /* libjpeg.8.dylib */; };
+		B711C2E31DE4894E000FDB22 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B711C2E21DE4894E000FDB22 /* main.cpp */; };
+		B711C2E51DE48955000FDB22 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B711C2E41DE48955000FDB22 /* Player.cpp */; };
+		B72411D61E0030DA00E2ED17 /* NetworkManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B72411D41E0030DA00E2ED17 /* NetworkManager.cpp */; };
+		B7540D681DFCA58700982382 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7540D661DFCA58700982382 /* StateManager.cpp */; };
+		B7540D6B1DFCAC3F00982382 /* MenuState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7540D691DFCAC3F00982382 /* MenuState.cpp */; };
+		B7540D6E1DFCE99800982382 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7540D6C1DFCE99800982382 /* GameState.cpp */; };
+		B766EDF71DFC3F3000B4CF1E /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B766EDF51DFC3F3000B4CF1E /* InputManager.cpp */; };
+		B798693D1DFB7CE800AD08EE /* libsfml-graphics.2.4.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B798693C1DFB7CE800AD08EE /* libsfml-graphics.2.4.1.dylib */; };
+		B79869421DFB7D0A00AD08EE /* libsfml-audio.2.4.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B798693E1DFB7D0A00AD08EE /* libsfml-audio.2.4.1.dylib */; };
+		B79869431DFB7D0A00AD08EE /* libsfml-network.2.4.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B798693F1DFB7D0A00AD08EE /* libsfml-network.2.4.1.dylib */; };
+		B79869441DFB7D0A00AD08EE /* libsfml-system.2.4.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B79869401DFB7D0A00AD08EE /* libsfml-system.2.4.1.dylib */; };
+		B79869451DFB7D0A00AD08EE /* libsfml-window.2.4.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B79869411DFB7D0A00AD08EE /* libsfml-window.2.4.1.dylib */; };
+		B79CD6171DFD7EDD0064A980 /* libtgui.0.7.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B79CD6161DFD7EDD0064A980 /* libtgui.0.7.2.dylib */; };
+		B79CD61D1DFDCB740064A980 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B79CD61C1DFDCB740064A980 /* State.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0B1D0A3E1D9EAAAA00319891 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0B1D0A401D9EAAAA00319891 /* DoubleTap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DoubleTap; sourceTree = BUILT_PRODUCTS_DIR; };
+		B711C2D31DE47F35000FDB22 /* libjpeg.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.8.dylib; path = ../../../../../Users/n3031709/Cellar/jpeg/8d/lib/libjpeg.8.dylib; sourceTree = "<group>"; };
+		B711C2E21DE4894E000FDB22 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = DoubleTap/main.cpp; sourceTree = SOURCE_ROOT; };
+		B711C2E41DE48955000FDB22 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Player.cpp; path = DoubleTap/Player.cpp; sourceTree = SOURCE_ROOT; };
+		B711C2E61DE48959000FDB22 /* Player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Player.hpp; path = DoubleTap/Player.hpp; sourceTree = SOURCE_ROOT; };
+		B72411D41E0030DA00E2ED17 /* NetworkManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NetworkManager.cpp; path = DoubleTap/NetworkManager.cpp; sourceTree = SOURCE_ROOT; };
+		B72411D51E0030DA00E2ED17 /* NetworkManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NetworkManager.hpp; path = DoubleTap/NetworkManager.hpp; sourceTree = SOURCE_ROOT; };
+		B7540D641DFCA57000982382 /* State.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = State.hpp; path = DoubleTap/State.hpp; sourceTree = SOURCE_ROOT; };
+		B7540D661DFCA58700982382 /* StateManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateManager.cpp; path = DoubleTap/StateManager.cpp; sourceTree = SOURCE_ROOT; };
+		B7540D671DFCA58700982382 /* StateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StateManager.hpp; path = DoubleTap/StateManager.hpp; sourceTree = SOURCE_ROOT; };
+		B7540D691DFCAC3F00982382 /* MenuState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuState.cpp; path = DoubleTap/MenuState.cpp; sourceTree = SOURCE_ROOT; };
+		B7540D6A1DFCAC3F00982382 /* MenuState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MenuState.hpp; path = DoubleTap/MenuState.hpp; sourceTree = SOURCE_ROOT; };
+		B7540D6C1DFCE99800982382 /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameState.cpp; path = DoubleTap/GameState.cpp; sourceTree = SOURCE_ROOT; };
+		B7540D6D1DFCE99800982382 /* GameState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GameState.hpp; path = DoubleTap/GameState.hpp; sourceTree = SOURCE_ROOT; };
+		B766EDF51DFC3F3000B4CF1E /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputManager.cpp; path = DoubleTap/InputManager.cpp; sourceTree = SOURCE_ROOT; };
+		B766EDF61DFC3F3000B4CF1E /* InputManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InputManager.hpp; path = DoubleTap/InputManager.hpp; sourceTree = SOURCE_ROOT; };
+		B798693C1DFB7CE800AD08EE /* libsfml-graphics.2.4.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-graphics.2.4.1.dylib"; path = "../../../../../Users/n3031709/Cellar/sfml/2.4.1/lib/libsfml-graphics.2.4.1.dylib"; sourceTree = "<group>"; };
+		B798693E1DFB7D0A00AD08EE /* libsfml-audio.2.4.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-audio.2.4.1.dylib"; path = "/Volumes/Home/FinalYear/MultiplayerandSocial/DoubleTap/ClientCode/MacCode/../../../../../Users/n3031709/Cellar/sfml/2.4.1/lib/libsfml-audio.2.4.1.dylib"; sourceTree = "<absolute>"; };
+		B798693F1DFB7D0A00AD08EE /* libsfml-network.2.4.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-network.2.4.1.dylib"; path = "../../../../../Users/n3031709/Cellar/sfml/2.4.1/lib/libsfml-network.2.4.1.dylib"; sourceTree = "<group>"; };
+		B79869401DFB7D0A00AD08EE /* libsfml-system.2.4.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-system.2.4.1.dylib"; path = "../../../../../Users/n3031709/Cellar/sfml/2.4.1/lib/libsfml-system.2.4.1.dylib"; sourceTree = "<group>"; };
+		B79869411DFB7D0A00AD08EE /* libsfml-window.2.4.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-window.2.4.1.dylib"; path = "../../../../../Users/n3031709/Cellar/sfml/2.4.1/lib/libsfml-window.2.4.1.dylib"; sourceTree = "<group>"; };
+		B79CD6161DFD7EDD0064A980 /* libtgui.0.7.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtgui.0.7.2.dylib; path = ../../../../../../../Users/n3031709/Cellar/tgui/0.7.2/lib/libtgui.0.7.2.dylib; sourceTree = "<group>"; };
+		B79CD61C1DFDCB740064A980 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = State.cpp; path = DoubleTap/State.cpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0B1D0A3D1D9EAAAA00319891 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B711C2D41DE47F35000FDB22 /* libjpeg.8.dylib in Frameworks */,
+				B798693D1DFB7CE800AD08EE /* libsfml-graphics.2.4.1.dylib in Frameworks */,
+				B79869421DFB7D0A00AD08EE /* libsfml-audio.2.4.1.dylib in Frameworks */,
+				B79869451DFB7D0A00AD08EE /* libsfml-window.2.4.1.dylib in Frameworks */,
+				B79CD6171DFD7EDD0064A980 /* libtgui.0.7.2.dylib in Frameworks */,
+				B79869431DFB7D0A00AD08EE /* libsfml-network.2.4.1.dylib in Frameworks */,
+				B79869441DFB7D0A00AD08EE /* libsfml-system.2.4.1.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0B1D0A371D9EAAAA00319891 = {
+			isa = PBXGroup;
+			children = (
+				B79CD6161DFD7EDD0064A980 /* libtgui.0.7.2.dylib */,
+				B798693E1DFB7D0A00AD08EE /* libsfml-audio.2.4.1.dylib */,
+				B798693F1DFB7D0A00AD08EE /* libsfml-network.2.4.1.dylib */,
+				B79869401DFB7D0A00AD08EE /* libsfml-system.2.4.1.dylib */,
+				B79869411DFB7D0A00AD08EE /* libsfml-window.2.4.1.dylib */,
+				B798693C1DFB7CE800AD08EE /* libsfml-graphics.2.4.1.dylib */,
+				B711C2D31DE47F35000FDB22 /* libjpeg.8.dylib */,
+				0B1D0A421D9EAAAA00319891 /* DoubleTap */,
+				0B1D0A411D9EAAAA00319891 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0B1D0A411D9EAAAA00319891 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0B1D0A401D9EAAAA00319891 /* DoubleTap */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0B1D0A421D9EAAAA00319891 /* DoubleTap */ = {
+			isa = PBXGroup;
+			children = (
+				B711C2E61DE48959000FDB22 /* Player.hpp */,
+				B711C2E41DE48955000FDB22 /* Player.cpp */,
+				B711C2E21DE4894E000FDB22 /* main.cpp */,
+				B72411DA1E00313600E2ED17 /* Managers */,
+				B72411D91E00312100E2ED17 /* States */,
+			);
+			name = DoubleTap;
+			path = t01;
+			sourceTree = "<group>";
+		};
+		B72411D91E00312100E2ED17 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				B7540D641DFCA57000982382 /* State.hpp */,
+				B79CD61C1DFDCB740064A980 /* State.cpp */,
+				B7540D691DFCAC3F00982382 /* MenuState.cpp */,
+				B7540D6A1DFCAC3F00982382 /* MenuState.hpp */,
+				B7540D6C1DFCE99800982382 /* GameState.cpp */,
+				B7540D6D1DFCE99800982382 /* GameState.hpp */,
+			);
+			name = States;
+			sourceTree = "<group>";
+		};
+		B72411DA1E00313600E2ED17 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B766EDF61DFC3F3000B4CF1E /* InputManager.hpp */,
+				B766EDF51DFC3F3000B4CF1E /* InputManager.cpp */,
+				B72411D41E0030DA00E2ED17 /* NetworkManager.cpp */,
+				B72411D51E0030DA00E2ED17 /* NetworkManager.hpp */,
+				B7540D661DFCA58700982382 /* StateManager.cpp */,
+				B7540D671DFCA58700982382 /* StateManager.hpp */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0B1D0A3F1D9EAAAA00319891 /* DoubleTap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0B1D0A471D9EAAAA00319891 /* Build configuration list for PBXNativeTarget "DoubleTap" */;
+			buildPhases = (
+				0B1D0A3C1D9EAAAA00319891 /* Sources */,
+				0B1D0A3D1D9EAAAA00319891 /* Frameworks */,
+				0B1D0A3E1D9EAAAA00319891 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DoubleTap;
+			productName = t01;
+			productReference = 0B1D0A401D9EAAAA00319891 /* DoubleTap */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0B1D0A381D9EAAAA00319891 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Cordry, Julien";
+				TargetAttributes = {
+					0B1D0A3F1D9EAAAA00319891 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 0B1D0A3B1D9EAAAA00319891 /* Build configuration list for PBXProject "DoubleTap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0B1D0A371D9EAAAA00319891;
+			productRefGroup = 0B1D0A411D9EAAAA00319891 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0B1D0A3F1D9EAAAA00319891 /* DoubleTap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0B1D0A3C1D9EAAAA00319891 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B72411D61E0030DA00E2ED17 /* NetworkManager.cpp in Sources */,
+				B711C2E51DE48955000FDB22 /* Player.cpp in Sources */,
+				B7540D6E1DFCE99800982382 /* GameState.cpp in Sources */,
+				B7540D681DFCA58700982382 /* StateManager.cpp in Sources */,
+				B711C2E31DE4894E000FDB22 /* main.cpp in Sources */,
+				B79CD61D1DFDCB740064A980 /* State.cpp in Sources */,
+				B7540D6B1DFCAC3F00982382 /* MenuState.cpp in Sources */,
+				B766EDF71DFC3F3000B4CF1E /* InputManager.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0B1D0A451D9EAAAA00319891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		0B1D0A461D9EAAAA00319891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				"ALWAYS_SEARCH_USER_PATHS[arch=*]" = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0B1D0A481D9EAAAA00319891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"HEADER_SEARCH_PATHS[arch=*]" = "~/include";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "~/lib";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0B1D0A491D9EAAAA00319891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0B1D0A3B1D9EAAAA00319891 /* Build configuration list for PBXProject "DoubleTap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B1D0A451D9EAAAA00319891 /* Debug */,
+				0B1D0A461D9EAAAA00319891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0B1D0A471D9EAAAA00319891 /* Build configuration list for PBXNativeTarget "DoubleTap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B1D0A481D9EAAAA00319891 /* Debug */,
+				0B1D0A491D9EAAAA00319891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0B1D0A381D9EAAAA00319891 /* Project object */;
+}

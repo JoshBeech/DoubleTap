@@ -10,9 +10,9 @@
 #include "StateManager.hpp"
 #include <SFML/Window.hpp>
 
-GameState::GameState()
+GameState::GameState(tgui::Gui* p_GUI, std::shared_ptr<tgui::Theme> p_Theme)
 {
-    Create();
+    Create(p_GUI, p_Theme);
 }
 
 GameState::~GameState()
@@ -20,7 +20,7 @@ GameState::~GameState()
     Destroy();
 }
 
-void GameState::Create()
+void GameState::Create(tgui::Gui* p_GUI, std::shared_ptr<tgui::Theme> p_Theme)
 {
     m_ID = GAME;
     std::cout<<"Creating Game State"<<std::endl;
@@ -49,4 +49,9 @@ void GameState::Update()
 void GameState::Render()
 {
     std::cout<<"Rendering Game State"<<std::endl;
+}
+
+void GameState::LoadScenes()
+{
+    
 }

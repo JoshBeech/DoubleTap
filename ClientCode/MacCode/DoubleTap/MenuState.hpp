@@ -16,14 +16,20 @@
 class MenuState : public State
 {
 public:
-    MenuState();
+    MenuState(tgui::Gui* p_GUI, std::shared_ptr<tgui::Theme> p_Theme);
     ~MenuState();
-    void Create() override;
+    void Create(tgui::Gui* p_GUI, std::shared_ptr<tgui::Theme> p_Theme) override;
     void Destroy() override;
     void Enter() override;
     void Exit() override;
     void Update() override;
     void Render() override;
+    
+    void LoadScenes() override;
+    std::vector<std::shared_ptr<tgui::Widget>> MakeLoginScene();
+    std::vector<std::shared_ptr<tgui::Widget>> MakeLobbyScene();
+    
+    void Login();
 private:
     // GUI Items
 };
