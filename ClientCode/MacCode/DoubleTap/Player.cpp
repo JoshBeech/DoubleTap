@@ -13,6 +13,6 @@ Player::Player(int start_x, int start_y)
     m_position.x = start_x;
     m_position.y = start_y;
     
-    m_avatar.setRadius(10.f);
+    m_avatar.setSize(sf::Vector2f(320,60));
     m_avatar.setFillColor(sf::Color::Magenta);
 }

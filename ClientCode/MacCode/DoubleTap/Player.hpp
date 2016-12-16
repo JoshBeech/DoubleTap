@@ -17,14 +17,14 @@ class Player
 {
 public:
     Player(int start_x, int start_y);
-    sf::CircleShape GetAvatar(){return m_avatar;}
+    sf::RectangleShape GetAvatar(){return m_avatar;}
     //Get Velo and Pos
     
     void move(){m_position += m_velocity;}
     void SetPosition(sf::Vector2i new_position){ m_position = new_position; }
     void SetVelocity(sf::Vector2i new_velocity){ m_velocity = new_velocity; }
 private:
-    sf::CircleShape m_avatar;
+    sf::RectangleShape m_avatar;
     sf::Vector2i m_position;
     sf::Vector2i m_velocity;
 };
