@@ -34,16 +34,19 @@ namespace MultiplayerSocialServer
 
         public static void ReceiveCallBack(IAsyncResult ar)
         {
-            UdpClient client = (UdpClient)((UDPState)(ar.AsyncState)).client;
-            IPEndPoint EndPoint = (IPEndPoint)((UDPState)(ar.AsyncState)).EndPoint;
+            UDPState l_state = (UDPState)ar.AsyncState;
+            //UdpClient client = (UdpClient)((UDPState)(ar.AsyncState)).client;
+            //IPEndPoint EndPoint = (IPEndPoint)((UDPState)(ar.AsyncState)).EndPoint;
 
-            Byte[] BytesReceived = client.EndReceive(ar, ref EndPoint);
+            Byte[] BytesReceived = l_state.client.EndReceive(ar, ref l_state.EndPoint);
             string StringReceived = Encoding.ASCII.GetString((BytesReceived));
 
             Console.WriteLine("Received: {0}", StringReceived);
 
             // Do the thing (while loop?)
-            SendMessage(EndPoint, StringReceived);
+            SendMessage(l_state.EndPoint, StringReceived);
+
+            l_state.client.BeginReceive(new AsyncCallback(ReceiveCallBack), l_state);
         }
 
         public static void ReceiveMessages()
