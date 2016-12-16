@@ -23,7 +23,7 @@ public:
     ~NetworkManager() {};
     void InitaliseSocket();
     void EstablishConnection();
-    long SendMessage(std::string p_msg);
+    void SendMessage(std::string p_msg);
     std::string ReceiveMessage();
     
     int GetSocket() { return m_sockfd; }
