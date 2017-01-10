@@ -8,6 +8,7 @@
 
 #include "MenuState.hpp"
 #include "NetworkManager.hpp"
+#include "SHA256.hpp"
 
 MenuState::MenuState(tgui::Gui* p_GUI, std::shared_ptr<tgui::Theme> p_Theme)
 {
@@ -93,7 +94,7 @@ std::vector<std::shared_ptr<tgui::Widget>> MenuState::MakeLoginScene()
     RegisterButton->setSize(160, 60);
     RegisterButton->setPosition(m_MainGUI->getSize().x/2, m_MainGUI->getSize().y/2);
     RegisterButton->setText("Register");
-    RegisterButton->connect("pressed", [&](){std::cout<<"Registering"<<std::endl;});
+    RegisterButton->connect("pressed", &MenuState::Register, this);
     m_MainGUI->add(RegisterButton, "Menu_Register");
     l_SceneWidgets.push_back(RegisterButton);
     
@@ -155,7 +156,26 @@ std::vector<std::shared_ptr<tgui::Widget>> MenuState::MakeLobbyScene()
 
 void MenuState::Login()
 {
-    NETWORK_MANAGER.SendMessage("reg:TestClient:");
+    tgui::EditBox::Ptr l_UsernameBox = m_MainGUI->get<tgui::EditBox>("Menu_Username");
+    tgui::EditBox::Ptr l_PasswordBox = m_MainGUI->get<tgui::EditBox>("Menu_Password");
+    std::string l_Username = l_UsernameBox->getText();
+    std::string l_Password = l_PasswordBox->getText();
+    l_Password = sha256(l_Password);
+    NETWORK_MANAGER.SendMessage("login:" + l_Username + ":" + l_Password + ":");
     HideScene(LOGIN);
     ShowScene(MAINLOBBY);
 }
+
+void MenuState::Register()
+{
+    tgui::EditBox::Ptr l_UsernameBox = m_MainGUI->get<tgui::EditBox>("Menu_Username");
+    tgui::EditBox::Ptr l_PasswordBox = m_MainGUI->get<tgui::EditBox>("Menu_Password");
+    std::string l_Username = l_UsernameBox->getText();
+    std::string l_Password = l_PasswordBox->getText();
+    l_Password = sha256(l_Password);
+    NETWORK_MANAGER.SendMessage("reg:" + l_Username + ":" + l_Password + ":");
+    HideScene(LOGIN);
+    ShowScene(MAINLOBBY);
+}
+
+
