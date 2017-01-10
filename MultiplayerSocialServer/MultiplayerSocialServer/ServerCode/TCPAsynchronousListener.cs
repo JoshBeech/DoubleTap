@@ -15,6 +15,7 @@ namespace MultiplayerSocialServer
 		public static ManualResetEvent AllDone = new ManualResetEvent(false);
 		public static Dictionary<string, Socket> UnassignedClients = new Dictionary<string, Socket>();
 		public static Dictionary<string, Room> Rooms = new Dictionary<string, Room>();
+        //public static DatabaseHandler Database = new DatabaseHandler();
 
 		public static void StartListening(int p_TCPPort, int p_PortOffset)
 		{
@@ -106,19 +107,37 @@ namespace MultiplayerSocialServer
 					Console.WriteLine(MessageType);
 					switch(MessageType)
 					{
-					case Messages.REG:
-						if(!UnassignedClients.ContainsKey(MessageParts[1]))
-						{
-							UnassignedClients.Add(MessageParts[1], handler);
-						}
-						else
-						{
-							SendTo(handler, "User already exists");
-						}							
+                        case Messages.REG:
+                            if(DatabaseHandler.AddUser(MessageParts[1], MessageParts[2]))
+                            {
+                                UnassignedClients.Add(MessageParts[1], handler);
+                                Console.WriteLine("User Accepted");
+                            }
 						break;
 					case Messages.UNREG:
-						UnassignedClients.Remove(MessageParts[1]);
 						break;
+                        case Messages.LOGIN:
+                        //DB check
+                            if (DatabaseHandler.ConfirmUser(MessageParts[1], MessageParts[2]))
+                            {
+                                if (!UnassignedClients.ContainsKey(MessageParts[1]))
+                                {
+                                    UnassignedClients.Add(MessageParts[1], handler);
+                                    Console.WriteLine("User Accepted");
+                                }
+                                else
+                                {
+                                    SendTo(handler, "User already exists");
+                                }
+                            }
+                            else
+                            {
+                                SendTo(handler, "Login Failed");    
+                            }
+                        break;
+                    case Messages.LOGOUT:
+                        UnassignedClients.Remove(MessageParts[1]);
+                        break;
 					case Messages.CREATEROOM:
 						if(!Rooms.ContainsKey(MessageParts[1]))
 						{
