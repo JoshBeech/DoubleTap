@@ -30,6 +30,7 @@ public:
     std::vector<std::shared_ptr<tgui::Widget>> MakeLobbyScene();
     
     void Login();
+    void Register();
 private:
     // GUI Items
 };

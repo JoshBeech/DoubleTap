@@ -10,6 +10,7 @@
 		B711C2D41DE47F35000FDB22 /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B711C2D31DE47F35000FDB22 /* libjpeg.8.dylib */; };
 		B711C2E31DE4894E000FDB22 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B711C2E21DE4894E000FDB22 /* main.cpp */; };
 		B711C2E51DE48955000FDB22 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B711C2E41DE48955000FDB22 /* Player.cpp */; };
+		B71941DC1E0452BD00FDBD0E /* SHA256.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B71941DA1E0452BD00FDBD0E /* SHA256.cpp */; };
 		B72411D61E0030DA00E2ED17 /* NetworkManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B72411D41E0030DA00E2ED17 /* NetworkManager.cpp */; };
 		B7540D681DFCA58700982382 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7540D661DFCA58700982382 /* StateManager.cpp */; };
 		B7540D6B1DFCAC3F00982382 /* MenuState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7540D691DFCAC3F00982382 /* MenuState.cpp */; };
@@ -42,6 +43,9 @@
 		B711C2E21DE4894E000FDB22 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = DoubleTap/main.cpp; sourceTree = SOURCE_ROOT; };
 		B711C2E41DE48955000FDB22 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Player.cpp; path = DoubleTap/Player.cpp; sourceTree = SOURCE_ROOT; };
 		B711C2E61DE48959000FDB22 /* Player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Player.hpp; path = DoubleTap/Player.hpp; sourceTree = SOURCE_ROOT; };
+		B71941DA1E0452BD00FDBD0E /* SHA256.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SHA256.cpp; path = DoubleTap/SHA256.cpp; sourceTree = SOURCE_ROOT; };
+		B71941DB1E0452BD00FDBD0E /* SHA256.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SHA256.hpp; path = DoubleTap/SHA256.hpp; sourceTree = SOURCE_ROOT; };
+		B71941DD1E04535300FDBD0E /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = DoubleTap/LICENSE.txt; sourceTree = SOURCE_ROOT; };
 		B72411D41E0030DA00E2ED17 /* NetworkManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NetworkManager.cpp; path = DoubleTap/NetworkManager.cpp; sourceTree = SOURCE_ROOT; };
 		B72411D51E0030DA00E2ED17 /* NetworkManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NetworkManager.hpp; path = DoubleTap/NetworkManager.hpp; sourceTree = SOURCE_ROOT; };
 		B7540D641DFCA57000982382 /* State.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = State.hpp; path = DoubleTap/State.hpp; sourceTree = SOURCE_ROOT; };
@@ -106,6 +110,7 @@
 		0B1D0A421D9EAAAA00319891 /* DoubleTap */ = {
 			isa = PBXGroup;
 			children = (
+				B71941D61E04520B00FDBD0E /* Encryption */,
 				B711C2E61DE48959000FDB22 /* Player.hpp */,
 				B711C2E41DE48955000FDB22 /* Player.cpp */,
 				B711C2E21DE4894E000FDB22 /* main.cpp */,
@@ -114,6 +119,16 @@
 			);
 			name = DoubleTap;
 			path = t01;
+			sourceTree = "<group>";
+		};
+		B71941D61E04520B00FDBD0E /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				B71941DA1E0452BD00FDBD0E /* SHA256.cpp */,
+				B71941DB1E0452BD00FDBD0E /* SHA256.hpp */,
+				B71941DD1E04535300FDBD0E /* LICENSE.txt */,
+			);
+			name = Encryption;
 			sourceTree = "<group>";
 		};
 		B72411D91E00312100E2ED17 /* States */ = {
@@ -203,6 +218,7 @@
 				B7540D6E1DFCE99800982382 /* GameState.cpp in Sources */,
 				B7540D681DFCA58700982382 /* StateManager.cpp in Sources */,
 				B711C2E31DE4894E000FDB22 /* main.cpp in Sources */,
+				B71941DC1E0452BD00FDBD0E /* SHA256.cpp in Sources */,
 				B79CD61D1DFDCB740064A980 /* State.cpp in Sources */,
 				B7540D6B1DFCAC3F00982382 /* MenuState.cpp in Sources */,
 				B766EDF71DFC3F3000B4CF1E /* InputManager.cpp in Sources */,

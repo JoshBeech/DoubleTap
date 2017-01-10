@@ -7,12 +7,7 @@
 //
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
-//#include <sys/socket.h>
-//#include <sys/types.h>
-//#include <netdb.h>
-//#include <thread>
-//#include <unistd.h>
+#include <thread>
 #include "NetworkManager.hpp"
 #include "StateManager.hpp"
 #include "MenuState.hpp"
@@ -22,9 +17,7 @@
 
 //const int BUFFSIZE = 2048;
 
-void EstablishConnection(int sockfd, std::string hostname, std::string port);
-long SendMessage(std::string msg, int sockfd);
-std::string ReceiveMessage(int sockfd);
+void BeginReceiveLoop(std::unique_ptr<bool> p_GameActive);
 
 //TODO:EVERY-FUCKING-THING AGAIN!!!!!!!!!!, then everything else -_-
 /*
@@ -54,17 +47,13 @@ int main()
     
     STATE_MANAGER.AddState(Menu);
     STATE_MANAGER.AddState(Game);
-    //int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    
-    //EstablishConnection(sockfd, "localhost", "27550");
-    //SendMessage("hello server", sockfd);
-    //std::cout<<ReceiveMessage(sockfd)<<std::endl;
     
     NETWORK_MANAGER.InitaliseSocket();
     NETWORK_MANAGER.EstablishConnection();
-    //NETWORK_MANAGER.SendMessage("sendto:bob:Hi");
     
     Player test_player(10, 10);
+    
+    std::unique_ptr<bool> l_GameActive(new bool(true));
     
     while (window.isOpen())
     {
@@ -95,9 +84,18 @@ int main()
         //window.draw(test_player.GetAvatar());
         window.display();
     }
+    *l_GameActive = false;
     
     delete &STATE_MANAGER;
     delete &NETWORK_MANAGER;
     
     return 0;
+}
+
+void BeginReceiveLoop(std::unique_ptr<bool> p_GameActive)
+{
+    while(p_GameActive)
+    {
+        NETWORK_MANAGER.ReceiveMessage();
+    }
 }
