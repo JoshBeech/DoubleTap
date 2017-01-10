@@ -19,7 +19,7 @@ namespace MultiplayerSocialServer
 	Optimise
 	*/
 
-	public enum Messages{REG, UNREG, JOINROOM, CREATEROOM, LEAVEROOM, SENDTO, SENDALL};
+	public enum Messages{REG, UNREG, LOGIN, LOGOUT, JOINROOM, CREATEROOM, LEAVEROOM, SENDTO, SENDALL};
 
 	public class StateObject
 	{

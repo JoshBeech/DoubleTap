@@ -31,6 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -38,6 +40,7 @@
     <Compile Include="ServerCode\Room.cs" />
     <Compile Include="ServerCode\TCPAsynchronousListener.cs" />
     <Compile Include="ServerCode\UDPAsynchronousListener.cs" />
+    <Compile Include="ServerCode\DatabaseHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
