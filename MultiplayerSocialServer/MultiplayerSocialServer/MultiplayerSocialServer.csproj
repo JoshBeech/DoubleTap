@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -41,6 +42,10 @@
     <Compile Include="ServerCode\TCPAsynchronousListener.cs" />
     <Compile Include="ServerCode\UDPAsynchronousListener.cs" />
     <Compile Include="ServerCode\DatabaseHandler.cs" />
+    <Compile Include="ServerCode\Client.cs" />
+    <Compile Include="ServerCode\Player.cs" />
+    <Compile Include="ServerCode\GameManager.cs" />
+    <Compile Include="ServerCode\MessageHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

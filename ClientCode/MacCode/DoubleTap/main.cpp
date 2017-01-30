@@ -12,27 +12,23 @@
 #include "StateManager.hpp"
 #include "MenuState.hpp"
 #include "GameState.hpp"
+#include "InputManager.hpp"
 #include "Player.hpp"
 
 
-//const int BUFFSIZE = 2048;
-
-void BeginReceiveLoop(std::unique_ptr<bool> p_GameActive);
-
-//TODO:EVERY-FUCKING-THING AGAIN!!!!!!!!!!, then everything else -_-
+//TODO:PANIC!!!!!!!!!!
+//TODO:Stop panicing
 /*
  Client:
     Add Player Controls - INPUTMANAGER
-    Move Network to separate class - static?
-    STATEMACHINE
     Multithread messages
+    Weapons
+    Collectables
+    Menu/s
     Make Map
     Add Map
     Physics#1 - collision?
     Jumping
-    Weapons
-    Collectables
-    Menu/s
 */
 
 int main()
@@ -48,12 +44,11 @@ int main()
     STATE_MANAGER.AddState(Menu);
     STATE_MANAGER.AddState(Game);
     
-    NETWORK_MANAGER.InitaliseSocket();
-    NETWORK_MANAGER.EstablishConnection();
+    NETWORK_MANAGER.LookForServer();
+    //NETWORK_MANAGER.InitaliseSocket();
+    //NETWORK_MANAGER.EstablishConnection();
     
-    Player test_player(10, 10);
-    
-    std::unique_ptr<bool> l_GameActive(new bool(true));
+    InputManager l_InputManager;
     
     while (window.isOpen())
     {
@@ -67,35 +62,22 @@ int main()
             
             if(event.type == sf::Event::KeyPressed)
             {
-                if (event.key.code == sf::Keyboard::Key::Space)
-                {
-                    if(STATE_MANAGER.GetCurrentState()->GetID() == MENU)
-                        STATE_MANAGER.ChangeState(GAME);
-                    else if (STATE_MANAGER.GetCurrentState()->GetID() == GAME)
-                        STATE_MANAGER.ChangeState(MENU);
-                }
+                if(l_InputManager.IsEventTracked(event))
+                    STATE_MANAGER.GetCurrentState()->ReceiveInput(event);
             }
         }
         
-        STATE_MANAGER.GetCurrentState()->Update();
-    
         window.clear();
+        STATE_MANAGER.GetCurrentState()->Update();
+        STATE_MANAGER.GetCurrentState()->Render(window);
         GUI.draw();
-        //window.draw(test_player.GetAvatar());
         window.display();
     }
-    *l_GameActive = false;
     
+    NETWORK_MANAGER.StopReceivingTCP();
     delete &STATE_MANAGER;
     delete &NETWORK_MANAGER;
     
     return 0;
 }
 
-void BeginReceiveLoop(std::unique_ptr<bool> p_GameActive)
-{
-    while(p_GameActive)
-    {
-        NETWORK_MANAGER.ReceiveMessage();
-    }
-}
