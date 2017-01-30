@@ -13,7 +13,7 @@ namespace MultiplayerSocialServer
 		public static int BasePort;
 		public static int PortOffset;
 		public static ManualResetEvent AllDone = new ManualResetEvent(false);
-		public static Dictionary<string, Socket> UnassignedClients = new Dictionary<string, Socket>();
+        public static Dictionary<string, Client> UnassignedClients = new Dictionary<string, Client>();
 		public static Dictionary<string, Room> Rooms = new Dictionary<string, Room>();
         //public static DatabaseHandler Database = new DatabaseHandler();
 
@@ -67,12 +67,10 @@ namespace MultiplayerSocialServer
 			// Signal the main thread to continue
 			AllDone.Set();
 
-			StateObject state = new StateObject();
-			state.WorkSocket = handler;
+            Client NewClient = new Client(handler);
+            NewClient.ClientSocket = handler;
 
-			// Tell the client what rooms are available, if none ask them if they want to create a room?
-
-			handler.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReadCallBack), state);
+            handler.BeginReceive(NewClient.Buffer, 0, Client.BufferSize, 0, new AsyncCallback(ReadCallBack), NewClient);
 		}
 
 		public static void ReadCallBack(IAsyncResult ar)
@@ -81,8 +79,8 @@ namespace MultiplayerSocialServer
 
 			// Retrieve the stat object and the handler socket
 			// from the asynchronous state object
-			StateObject state = (StateObject) ar.AsyncState;
-			Socket handler = state.WorkSocket;
+            Client l_Client = (Client) ar.AsyncState;
+            Socket handler = l_Client.ClientSocket;
 
 			// Read data from the client socket
 			int BytesRead = handler.EndReceive(ar);
@@ -92,109 +90,25 @@ namespace MultiplayerSocialServer
 				// There might be more data, so store the data received so far.
 				//state.SB.Append(Encoding.ASCII.GetString(state.Buffer, 0, BytesRead));
 
-				content = Encoding.ASCII.GetString(state.Buffer, 0, BytesRead);
+                content = Encoding.ASCII.GetString(l_Client.Buffer, 0, BytesRead);
 				char[] delimiter = new char[] {':'};
 				string[] MessageParts = content.Split(delimiter);
 
-				// Look for end of message?
-
 				Console.WriteLine("Message recieved: {0}\n", content);
 
-				// Filter the message
-				Messages MessageType;
-				if(Enum.TryParse<Messages>(MessageParts[0].ToUpper(), out MessageType))
-				{
-					Console.WriteLine(MessageType);
-					switch(MessageType)
-					{
-                        case Messages.REG:
-                            if(DatabaseHandler.AddUser(MessageParts[1], MessageParts[2]))
-                            {
-                                UnassignedClients.Add(MessageParts[1], handler);
-                                Console.WriteLine("User Accepted");
-                            }
-						break;
-					case Messages.UNREG:
-						break;
-                        case Messages.LOGIN:
-                        //DB check
-                            if (DatabaseHandler.ConfirmUser(MessageParts[1], MessageParts[2]))
-                            {
-                                if (!UnassignedClients.ContainsKey(MessageParts[1]))
-                                {
-                                    UnassignedClients.Add(MessageParts[1], handler);
-                                    Console.WriteLine("User Accepted");
-                                }
-                                else
-                                {
-                                    SendTo(handler, "User already exists");
-                                }
-                            }
-                            else
-                            {
-                                SendTo(handler, "Login Failed");    
-                            }
-                        break;
-                    case Messages.LOGOUT:
-                        UnassignedClients.Remove(MessageParts[1]);
-                        break;
-					case Messages.CREATEROOM:
-						if(!Rooms.ContainsKey(MessageParts[1]))
-						{
-							Room NewRoom = new Room(MessageParts [1], Rooms.Count, (BasePort + PortOffset + Rooms.Count));
-							Rooms.Add(NewRoom.name, NewRoom);
-						}
-						else
-							SendTo(handler, "Room already exists");
-						break;
-					case Messages.JOINROOM:
-						// Check if room is full - what is max size?
-						if(!Rooms.ContainsKey(MessageParts[1]))
-							SendTo(handler, "Room does not exist");
-                        else
-                        {
-                            UnassignedClients.Remove(MessageParts[2]);
-                            Rooms[MessageParts[1]].AddClient(MessageParts[2], handler);       
-                        }					
-						break;
-					case Messages.LEAVEROOM:
-						Rooms[MessageParts[1]].Clients.Remove(MessageParts[2]);
-						UnassignedClients.Add(MessageParts[2], handler);
-						break;
-                        case Messages.SENDTO:
-                        if (!UnassignedClients.ContainsKey(MessageParts[1]))
-                            SendTo(handler, "Could not find user: " + MessageParts[1] + "\n");
-                        else
-                            SendTo(UnassignedClients[MessageParts[1]], MessageParts[2]);
-						break;
-					case Messages.SENDALL:
-						if (!MessageParts[1].Contains ("Room")) 
-							foreach (KeyValuePair<string, Socket> pair in UnassignedClients)
-								SendTo (UnassignedClients [pair.Key], MessageParts [2]);						
-						else
-							foreach(KeyValuePair<string, Socket> pair in Rooms[MessageParts[1]].Clients)
-								SendTo(Rooms[MessageParts[1]].Clients[pair.Key], MessageParts[2]);
-						break;
-					default:
-						SendTo(handler, "Invalid Message\n");
-						break;
-					}
-				}
-				else
-				{
-					SendTo(handler, "Invalid Message\n");
-				}
+                MessageHandler.FilterTCPMessage(MessageParts, l_Client);
 			}
-
+             
 			// Start Receiving again whether data has been sent or not
-			handler.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, 
-				new AsyncCallback(ReadCallBack), state);
+            handler.BeginReceive(l_Client.Buffer, 0, Client.BufferSize, 0, 
+                new AsyncCallback(ReadCallBack), l_Client);
 
 		}
 
 		private static void SendTo(Socket handler, String data)
 		{
 			// Convert the string data to byte data using ASCII encoding
+            Console.WriteLine("Sending: " + data);
 			byte[] ByteData = Encoding.ASCII.GetBytes(data);
 
 			// Begin sending the data to the remote device.
@@ -217,6 +131,88 @@ namespace MultiplayerSocialServer
 				Console.WriteLine(e.ToString());
 			}
 		}
+
+        public static bool CheckForUser(string p_ClientName)
+        {
+            if (UnassignedClients.ContainsKey(p_ClientName))
+                return true;
+            else
+                return false;
+        }
+
+        public static void AddUser(string p_ClientName, Client p_Client)
+        {
+            UnassignedClients.Add(p_ClientName, p_Client);
+        }
+
+        public static void RemoveUser(string p_ClientName)
+        {
+            UnassignedClients.Remove(p_ClientName);
+        }
+
+        public static bool CheckForRoom(string p_RoomName)
+        {
+            if (Rooms.ContainsKey(p_RoomName))
+                return true;
+            else
+                return false;
+        }
+
+        public static void CreateRoom(string p_RoomName, string p_RoomAvailablity, string p_ClientName, Client p_User)
+        {
+            Room NewRoom = new Room(p_RoomName, Rooms.Count, (BasePort + PortOffset + Rooms.Count), p_RoomAvailablity);
+            Rooms.Add(NewRoom.name, NewRoom);
+            JoinRoom(NewRoom.name, p_ClientName, p_User);
+        }
+
+        public static void JoinRoom(string p_RoomName, string p_ClientName, Client p_User)
+        {
+            UnassignedClients.Remove(p_ClientName);
+            Rooms[p_RoomName].AddClient(p_ClientName, p_User);
+        }
+
+        public static void LeaveRoom(string p_RoomName, string p_ClientName, Client p_User)
+        {
+            Rooms[p_RoomName].RemoveClient(p_ClientName);
+            UnassignedClients.Add(p_ClientName, p_User);
+        }
+
+        public static string GetRooms()
+        {
+            string l_RoomList = "";
+            foreach(KeyValuePair<string, Room> l_Room in Rooms)
+            {
+                l_RoomList += l_Room.Value.name + "\t" + l_Room.Value.NumberOfPlayers + "/" +
+                    l_Room.Value.MaxPlayers + "\t" + l_Room.Value.Availablity + ":";
+            }
+            return l_RoomList;
+        }
+
+        public static string GetAllPlayerInfoInRoom(string p_RoomName)
+        {
+            return Rooms[p_RoomName].GetAllPlayerInfo();
+        }
+
+        public static string UpdatePlayerInfoInRoom(string p_RoomName, string p_ClientName, string p_ReadyStatus)
+        {
+            Rooms[p_RoomName].UpdatePlayerStatus(p_ClientName, p_ReadyStatus);
+            return GetAllPlayerInfoInRoom(p_RoomName);
+        }
+
+        public static void SendSingleTCPMessage(Client p_Client, string p_Message)
+        {
+            SendTo(p_Client.ClientSocket, p_Message);
+        }
+
+        public static void SendGroupTCPMessage(string p_Room, string p_Message)
+        {
+            if (p_Room.Equals(""))
+                foreach (Client l_Client in UnassignedClients.Values)
+                    SendTo(l_Client.ClientSocket, p_Message);
+            else
+                foreach (Client l_Client in Rooms[p_Room].Clients.Values)
+                    SendTo(l_Client.ClientSocket, p_Message);
+        }
 	}
 }
 

@@ -21,16 +21,16 @@ public:
     ~StateManager() {};
     
     void AddState(std::shared_ptr<State> NewState);
-    void ChangeState(StateID NextState);
+    void ChangeState(int p_StateID);
     std::shared_ptr<State> GetCurrentState() {return m_StateMap.at(m_CurrentStateID); }
     
 protected:
-    StateManager() { m_CurrentStateID = MENU; }
+    StateManager() { m_CurrentStateID = 0; }
     
 private:
     static StateManager* m_instance;
-    StateID m_CurrentStateID;
-    std::map<StateID, std::shared_ptr<State>> m_StateMap;
+    int m_CurrentStateID;
+    std::map<int, std::shared_ptr<State>> m_StateMap;
 };
 
 #define STATE_MANAGER StateManager::GetInstance()

@@ -18,67 +18,153 @@ NetworkManager& NetworkManager::GetInstance()
     return *m_instance;
 }
 
-void NetworkManager::InitaliseSocket()
+void NetworkManager::LookForServer()
 {
-    m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
-}
+    sf::UdpSocket BroadCastSocket;
+    BroadCastSocket.bind(m_TCPPort);
+    
+    const char l_message[] = "Is anyone out there";
+    sf::IpAddress BroadcastAddress = sf::IpAddress::Broadcast;
 
-void NetworkManager::EstablishConnection()
-{
-    // Setting things up
-    int status;
-    struct addrinfo hints;
-    struct addrinfo* servinfo;
-    // will point to the results
-    memset(&hints, 0, sizeof hints);
-    // make sure the struct is empty
-    hints.ai_family = AF_INET;
-    // Choose IPv4 over IPv6
-    hints.ai_socktype = SOCK_STREAM;
-    // TCP stream sockets
-    hints.ai_flags = AI_PASSIVE;
-    // fill in my IP for me OR use NULL
-    if ((status = getaddrinfo(m_hostname.c_str(),
-                              m_port.c_str(), &hints, &servinfo)) != 0)
+    
+    char l_ReceivedMessage[2048];
+    std::size_t l_SizeReceived;
+    sf::IpAddress l_Sender;
+    unsigned short l_SenderPort;
+    
+    sf::SocketSelector l_Selector;
+    l_Selector.add(BroadCastSocket);
+    
+    // Figure out SF timers so I dont get stuck forever
+    while(true)
     {
-        fprintf(stderr, "getaddrinfo error: %s\n",
-                gai_strerror(status));
-        _exit(1);
+        if(BroadCastSocket.send(l_message, sizeof(l_message), BroadcastAddress, m_TCPPort) != sf::Socket::Done)
+            return;
+        
+
+        if(l_Selector.wait(sf::seconds(1)))
+        {
+            BroadCastSocket.receive(l_ReceivedMessage, sizeof(l_ReceivedMessage), l_SizeReceived, l_Sender, l_SenderPort);
+            break;
+        }
     }
-    // servinfo now points to a linked list of 1 or more struct addrinfos
-    // ... Do everything until you don 't need servinfo anymore ...
+
+    m_ServerAddress = l_Sender;
+    std::cout<<m_ServerAddress<<std::endl;
     
-    connect(m_sockfd, servinfo->ai_addr, servinfo->ai_addrlen);
+    sf::Socket::Status l_status = m_TCPSocket.connect(m_ServerAddress, m_TCPPort);
     
-    freeaddrinfo(servinfo); // free the linked-list
+    if(l_status != sf::Socket::Done)
+    {
+        std::cout<<"Shit has hit the fan"<<std::endl;
+    }
+    
+    std::thread t_ReceiveThread(&NetworkManager::BeginTCPReceive, this);
+    t_ReceiveThread.detach();
 }
 
-void NetworkManager::SendMessage(std::string p_msg)
+
+void NetworkManager::BindUDPSocket(int p_RoomPort)
+{
+    m_UDPPort = p_RoomPort;
+    m_UDPSocket.bind(p_RoomPort);
+    m_IsBound = true;
+    
+    *m_ReceiveUDP = true;
+    std::thread t_ReceiveUDPThread(&NetworkManager::BeginUDPReceive, this);
+    t_ReceiveUDPThread.detach();
+}
+
+void NetworkManager::SendTCPMessage(std::string p_msg)
 {
     char buffer[BUFFSIZE];
-    long n;
+
     memset(buffer, 0, BUFFSIZE);
     memcpy(buffer, p_msg.c_str(), p_msg.length());
-    n = write(m_sockfd, buffer, p_msg.length());
-    // as an alternative: send
-    if (n < 0)
+
+    
+    m_TCPSocket.send(buffer, BUFFSIZE);
+}
+
+std::string NetworkManager::ReceiveTCPMessage()
+{
+    char buffer[BUFFSIZE];
+    std::size_t l_Received;
+    memset(buffer, 0, BUFFSIZE);
+    m_TCPSocket.receive(buffer, BUFFSIZE, l_Received);
+
+    return std::string(buffer);
+}
+
+void NetworkManager::BeginTCPReceive()
+{
+    m_TCPMessageQueue.SetLimit(100);
+    std::string l_Message;
+    while(m_ReceiveTCP)
     {
-        perror("send");
-        _exit(-1);
+        l_Message = ReceiveTCPMessage();
+        if(!l_Message.empty())
+            m_TCPMessageQueue.Add(l_Message);       
+    
     }
 }
 
-std::string NetworkManager::ReceiveMessage()
+void NetworkManager::StopReceivingTCP()
+{
+    *m_ReceiveTCP = false;
+}
+
+void NetworkManager::SendUDPMessage(std::string p_msg)
 {
     char buffer[BUFFSIZE];
-    // read
+    //long n;
     memset(buffer, 0, BUFFSIZE);
-    long n = read(m_sockfd, buffer, BUFFSIZE);
-    // as an alternative: recv
-    if (n < 0)
-    {
-        perror("recv");
-        _exit(-1);
-    }
+    memcpy(buffer, p_msg.c_str(), p_msg.length());
+    
+    m_UDPSocket.send(buffer, BUFFSIZE, m_ServerAddress, m_UDPPort);
+}
+
+std::string NetworkManager::ReceiveUDPMessage()
+{
+    char buffer[BUFFSIZE];
+    std::size_t l_Received;
+    memset(buffer, 0, BUFFSIZE);
+
+    m_UDPSocket.receive(buffer, BUFFSIZE, l_Received, m_ServerAddress, m_UDPPort);
     return std::string(buffer);
 }
+
+void NetworkManager::BeginUDPReceive()
+{
+    std::cout<<"Receiving UDP"<<std::endl;
+    m_UDPMessageQueue.SetLimit(200);
+    std::string l_Message;
+    while(m_ReceiveTCP)
+    {
+        l_Message = ReceiveUDPMessage();
+        if(!l_Message.empty())
+            m_UDPMessageQueue.Add(l_Message);
+        
+    }
+}
+
+void NetworkManager::StopReceivingUDP()
+{
+    *m_ReceiveUDP = false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

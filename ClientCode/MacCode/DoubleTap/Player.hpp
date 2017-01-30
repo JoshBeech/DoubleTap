@@ -16,17 +16,19 @@
 class Player
 {
 public:
-    Player(int start_x, int start_y);
-    sf::RectangleShape GetAvatar(){return m_avatar;}
+    Player();
+    sf::RectangleShape& GetAvatar(){return m_avatar;}
     //Get Velo and Pos
     
-    void move(){m_position += m_velocity;}
-    void SetPosition(sf::Vector2i new_position){ m_position = new_position; }
-    void SetVelocity(sf::Vector2i new_velocity){ m_velocity = new_velocity; }
+    void Move(){m_Position += m_Velocity; m_avatar.setPosition(m_Position);}
+    void SetPosition(sf::Vector2f new_position){ m_Position = new_position; m_avatar.setPosition(m_Position); }
+    sf::Vector2f& GetPosition() {return m_Position;}
+    void SetVelocity(sf::Vector2f p_Velocity) {m_Velocity = p_Velocity;}
+    sf::Vector2f& GetVelocity() {return m_Velocity;}
 private:
     sf::RectangleShape m_avatar;
-    sf::Vector2i m_position;
-    sf::Vector2i m_velocity;
+    sf::Vector2f m_Position;
+    sf::Vector2f m_Velocity;
 };
 
 #endif /* Player_hpp */

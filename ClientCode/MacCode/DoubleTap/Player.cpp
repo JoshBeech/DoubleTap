@@ -8,11 +8,11 @@
 
 #include "Player.hpp"
 
-Player::Player(int start_x, int start_y)
+Player::Player()
 {
-    m_position.x = start_x;
-    m_position.y = start_y;
+    m_Position.x = 0;
+    m_Position.y = 0;
     
-    m_avatar.setSize(sf::Vector2f(320,60));
-    m_avatar.setFillColor(sf::Color::Magenta);
+    m_avatar.setSize(sf::Vector2f(25,25));
+    m_avatar.setFillColor(sf::Color::Cyan);
 }

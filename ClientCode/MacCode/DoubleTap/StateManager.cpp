@@ -25,13 +25,13 @@ void StateManager::AddState(std::shared_ptr<State> NewState)
         throw std::invalid_argument("State already exists");
     }
     else
-        m_StateMap.insert(std::pair<StateID, std::shared_ptr<State>>(NewState->GetID(), NewState));
+        m_StateMap.insert(std::pair<int, std::shared_ptr<State>>(NewState->GetID(), NewState));
     
     if(m_StateMap.size() == 1)
         m_CurrentStateID = NewState->GetID();
 }
 
-void StateManager::ChangeState(StateID NextState)
+void StateManager::ChangeState(int NextState)
 {
     // Call current state exit and next state enter
     m_StateMap.at(m_CurrentStateID)->Exit();
